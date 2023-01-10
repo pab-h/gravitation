@@ -3,7 +3,7 @@ type TComponets = {
     y: number
 }
 
-class CelestialBody {
+class MassBody {
     public id: number;
     public mass: number = 100;
     public radius: number = 10;
@@ -17,7 +17,7 @@ class CelestialBody {
     } 
 
     public constructor () {
-        this.id = CelestialBody.randomId();
+        this.id = MassBody.randomId();
 
         this.position = {
             x: 0,
@@ -36,14 +36,14 @@ class CelestialBody {
 
     }
 
-    public angleTo(otherBody: CelestialBody) {
+    public angleTo(otherBody: MassBody) {
         const deltaY = otherBody.position.y - this.position.y;
         const deltaX = otherBody.position.x - this.position.x;
 
         return Math.atan2(deltaY, deltaX);
     }
 
-    public distanceTo(otherBody: CelestialBody) {
+    public distanceTo(otherBody: MassBody) {
         const deltaY = otherBody.position.y - this.position.y;
         const deltaX = otherBody.position.x - this.position.x;
 
@@ -64,22 +64,22 @@ class CelestialBody {
 
 }
 
-class CelestialBodySystem {
-    readonly celestialBodies: Array<CelestialBody> = [];
+class MassBodySystem {
+    readonly massBodies: Array<MassBody> = [];
     public G: number = .01;
 
-    public push(body: CelestialBody) {
-        this.celestialBodies.push(body);
+    public push(body: MassBody) {
+        this.massBodies.push(body);
 
     }
 
-    public resultForceIn(body: CelestialBody) { 
+    public resultForceIn(body: MassBody) { 
         const resultForce: TComponets = {
             x: 0,
             y: 0
         };
 
-        for(const otherBody of this.celestialBodies) {
+        for(const otherBody of this.massBodies) {
             if (body.id == otherBody.id) {
                 
                 continue;
@@ -104,7 +104,7 @@ class CelestialBodySystem {
     }
 
     public updateAll(time: number = 0) {
-        for(const body of this.celestialBodies) {
+        for(const body of this.massBodies) {
             const force = this.resultForceIn(body);
             
             body.accelerationBy(force);
@@ -115,13 +115,13 @@ class CelestialBodySystem {
 
 }
 
-class DisplayCelestialBodySystem {
-    private celestialBodySystem: CelestialBodySystem;
+class DisplayMassBodySystem {
+    private MassBodySystem: MassBodySystem;
     private pencil: CanvasRenderingContext2D;
     readonly CANVAS_WIDTH = 600;
     readonly CANVAS_HEIGHT = 600;
 
-    public constructor (canvasId: string, celestialBodySystem: CelestialBodySystem) {
+    public constructor (canvasId: string, MassBodySystem: MassBodySystem) {
         const canvas = document.querySelector(`canvas#${ canvasId }`) as HTMLCanvasElement | null;
         
         if (!canvas) {
@@ -138,7 +138,7 @@ class DisplayCelestialBodySystem {
         this.pencil.canvas.width = this.CANVAS_WIDTH;
         this.pencil.canvas.height = this.CANVAS_HEIGHT;
 
-        this.celestialBodySystem = celestialBodySystem;
+        this.MassBodySystem = MassBodySystem;
 
     }
 
@@ -158,7 +158,7 @@ class DisplayCelestialBodySystem {
 
         }
         
-        for(const body of this.celestialBodySystem.celestialBodies) {
+        for(const body of this.MassBodySystem.massBodies) {
             this.pencil.beginPath();
             this.pencil.arc(
                 body.position.x,
@@ -176,27 +176,27 @@ class DisplayCelestialBodySystem {
 }
 
 function example () {
-    const system = new CelestialBodySystem();
+    const system = new MassBodySystem();
 
-    const bodyA = new CelestialBody();
+    const bodyA = new MassBody();
     bodyA.position = {
         x: 0,
         y: 0
     };
 
-    const bodyB = new CelestialBody();
+    const bodyB = new MassBody();
     bodyB.position = {
         x: 600,
         y: 0
     };
 
-    const bodyC = new CelestialBody();
+    const bodyC = new MassBody();
     bodyC.position = {
         x: 0,
         y: 600
     };
 
-    const bodyD = new CelestialBody();
+    const bodyD = new MassBody();
     bodyD.position = {
         x: 600,
         y: 600
@@ -207,7 +207,7 @@ function example () {
     system.push(bodyC);
     system.push(bodyD);
     
-    const displaySystem = new DisplayCelestialBodySystem(
+    const displaySystem = new DisplayMassBodySystem(
         "main",
         system
     );
