@@ -50,3 +50,34 @@ Responsável por representar um corpo com massa no sistema
 
 #### accelerationBy
 `public accelerationBy(resultForce: TComponets = { x: 0, y: 0 })`
+
+### MassBodySystem
+Responsável pela interações entre os MassBody
+
+#### Propriedades 
+1. massBodies
+1. G
+
+#### push
+`public push(body: MassBody)`
+
+#### resultForceIn
+`public resultForceIn(body: MassBody)`
+
+#### updateAll
+`public updateAll(time: number = 0)`
+
+### DisplayMassBodySystem
+Responsável pela visualização do MassBodySystem
+
+#### Propriedades 
+1. MassBodySystem
+1. pencil
+1. CANVAS_WIDTH
+1. CANVAS_HEIGHT
+
+#### clean
+`public clean()`
+
+#### display
+`public display(clean: boolean = true)`
