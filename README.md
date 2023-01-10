@@ -15,7 +15,7 @@ Após instalado os packpages, execute no terminal:
 `npx tsc index.ts`
 
 ## Tipo TComponets
-```ts
+```
 type TComponets = {
     x: number,
     y: number
@@ -27,16 +27,14 @@ type TComponets = {
 ### MassBody
 Responsável por representar um corpo com massa no sistema
 
-#### Propriedades
-```ts
-public id: number;
-public mass: number = 100;
-public radius: number = 10;
-public color: string = "white";
-public position: TComponets;
-public velocity: TComponets;
-public acceleration: TComponets;
-```
+#### Propriedades 
+1. id
+1. mass
+1. radius
+1. color 
+1. position
+1. velocity
+1. acceleration
 
 #### randomId
 `private static randomId()`
